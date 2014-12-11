@@ -1,37 +1,43 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <title>Urban Movement</title>
-        <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-        <meta name="viewport" content="width=device-width" />
-        @Styles.Render("~/Content/css")
-        @Scripts.Render("~/bundles/modernizr")
-    </head>
-    <body>
-        <header>
-            <div class="content-wrapper">
-                <div class="float-left">
-                    @Html.ActionLink(" ", "Index", "Home", null, new { @class = "logo" })
-                </div>
+<head>
+    <meta charset="utf-8" />
+    <title>Urban Movement</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <header>
+        <div class="content-wrapper">
+            <div class="float-left">
+                @Html.ActionLink(" ", "Index", "Home", null, new { @class = "logo" })
             </div>
-        </header>
-        <div id="body">
-            @RenderBody()
-            @*            @RenderSection("featured", required: false)
-            <section class="content-wrapper main-content clear-fix">
-                @RenderBody()
-            </section>*@
         </div>
-        <footer>
-            <div class="content-wrapper">
-                <div class="float-left">
-                    <p>&copy; @DateTime.Now.Year - Urban Movement</p>
-                </div>
+        @{ Html.RenderPartial("_MenuBar"); }
+    </header>
+    <div id="body">
+        <section class="content-wrapper main-content clear-fix">
+            <div id="content" class="border float-left">
             </div>
-        </footer>
-
-        @Scripts.Render("~/bundles/jquery")
-        @RenderSection("scripts", required: false)
-    </body>
+        </section>
+    </div>
+    <footer>
+        <div class="content-wrapper">
+            <div class="float-left">
+                <p>&copy; @DateTime.Now.Year - Urban Movement</p>
+            </div>
+        </div>
+    </footer>
+    @RenderSection("scripts", false)
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/site")
+</body>
+<script type="text/javascript" src="http://www.google.com/recaptcha/api/js/recaptcha_ajax.js"></script>
+<script>
+    $(function () {
+        siteInitialise();
+    });
+</script>
 </html>

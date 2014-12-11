@@ -4,7 +4,7 @@ using System.Web.Mvc;
 
 namespace UrbanMovement.Controllers
 {
-    public class CofController : Controller
+    public class UmController : Controller
     {
         protected string RenderViewToString(string viewName, object model)
         {
