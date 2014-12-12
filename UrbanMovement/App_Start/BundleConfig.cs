@@ -30,6 +30,7 @@ namespace UrbanMovement
             bundles.Add(new StyleBundle("~/Content/css")
                 .Include("~/Content/menu/font-awesome.css")
                 .Include("~/Content/menu/menu.css")
+                .Include("~/Content/youmax.css")
                 .Include("~/Content/site.css"));
 
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(

@@ -10,7 +10,9 @@ function siteInitialise() {
 }
 
 function showPage(selectedPage) {
-    
+
+    alert("selected page " + selectedPage);
+
     switch (selectedPage) {
     
         case "YouTubeRagz":
@@ -22,4 +24,15 @@ function showPage(selectedPage) {
 
 function youTubePageRagz() {
     
+    $.post("/YouTube/YouMax", function (data) {
+        appendData(data);
+        prepareYoumax();
+    });
+
+
+}
+
+
+function appendData(data) {
+    $("#content").append(data);
 }
