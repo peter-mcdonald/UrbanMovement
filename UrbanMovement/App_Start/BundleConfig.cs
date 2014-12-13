@@ -20,6 +20,7 @@ namespace UrbanMovement
             bundles.Add(new ScriptBundle("~/bundles/site")
                 .Include("~/Scripts/menu.js")
                 .Include("~/Scripts/urbanmovement.js")
+                .Include("~/Scripts/soundcloud.js")
                 .Include("~/Scripts/youmax.js"));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're

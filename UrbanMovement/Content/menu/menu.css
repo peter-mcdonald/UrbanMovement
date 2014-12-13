@@ -24,7 +24,7 @@ body
 }
 
 /* --- header -- */
-header
+#menuwrap
 {
     background: url(../img/header-pattern-150.png) repeat;
     margin: 0;
@@ -35,35 +35,35 @@ header
 
     /* --- menu --- */
 
-    header .navigation
+    #menuwrap .navigation
     {
         float: right;
     }
 
-    header ul.nav li
+    #menuwrap ul.nav li
     {
         border: none;
         margin: 0;
     }
 
-        header ul.nav li span
+        #menuwrap ul.nav li span
         {
             border: none;
             font-weight: 400;
         }
 
-        header ul.nav li ul
+        #menuwrap ul.nav li ul
         {
             z-index: 1000;
             margin-top: 20px;
         }
 
-            header ul.nav li ul li ul
+            #menuwrap ul.nav li ul li ul
             {
                 margin: 1px 0 0 1px;
             }
 
-        header ul.nav li span i
+        #menuwrap ul.nav li span i
         {
             color: #fff;
         }
@@ -476,7 +476,7 @@ select.selectmenu
         display: none;
     }
 
-    header .navigation
+    #menuwrap .navigation
     {
         margin: 0 auto;
         text-align: center;

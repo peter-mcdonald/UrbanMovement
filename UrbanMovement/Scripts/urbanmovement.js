@@ -18,6 +18,10 @@ function showPage(selectedPage) {
         case "YouTubeRagz":
             youTubePageRagz();
             break;
+            
+        case "SoundCloudInterviews":
+            soundCloudInterviews();
+            break;
 
     }
 }
@@ -30,6 +34,10 @@ function youTubePageRagz() {
     });
 
 
+}
+
+function soundCloudInterviews() {
+    getDataFromSoundcloud("21788292", "#content");
 }
 
 

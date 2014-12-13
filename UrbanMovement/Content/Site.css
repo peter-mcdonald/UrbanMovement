@@ -159,6 +159,7 @@ footer
 }
 
 
+
 /* site title
 ----------------------------------------------------------*/
 .site-title
@@ -181,10 +182,10 @@ footer
 ----------------------------------------------------------*/
 .logo
 {
-    background: no-repeat url(/Images/Logo/logo.png);
+    background: repeat url(/Images/Logo/logo-gradient.png);
     display: block;
-    height: 200px;
-    width: 675px;
+    padding-top: 3px;
+    padding-bottom: 15px;
 }
 
 
