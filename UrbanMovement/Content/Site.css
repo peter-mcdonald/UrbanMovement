@@ -184,11 +184,58 @@ footer
 {
     background: repeat url(/Images/Logo/logo-gradient.png);
     display: block;
-    padding-top: 3px;
-    padding-bottom: 15px;
+    /*padding-top: 3px;
+    padding-bottom: 15px;*/
 }
 
+/* news ticker*/
+.vticker
+{
+    width: 90%;
+}
 
+    .vticker ul
+    {
+        padding: 0;
+        list-style: none;
+    }
+
+    .vticker li
+    {
+        margin: 0;
+        padding: 20px;
+        display: list-item;
+        border-bottom: 1px dashed #ccc;
+    }
+
+        .vticker li:after
+        {
+            content: '';
+            display: block;
+            clear: both;
+        }
+
+    .vticker img
+    {
+        float: left;
+        width: 100px;
+        margin: 5px 15px 0 0;
+    }
+
+    .vticker a
+    {
+        font-family: Arial, sans-serif;
+        font-size: 20px;
+        font-weight: bold;
+        color: #8A2453;
+    }
+
+    .vticker p
+    {
+        margin: 15px 0 0;
+        font-size: 14px;
+        color: whitesmoke;
+    }
 
 /* FaMax */
 .famax-showing

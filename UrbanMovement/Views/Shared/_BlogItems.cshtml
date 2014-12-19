@@ -1,0 +1,13 @@
+﻿@model IEnumerable<UrbanMovement.Models.BlogItem>
+@using UrbanMovement.Helpers
+
+<ul>
+    @foreach (var item in Model)
+    {
+        <li>
+            <img src='@item.ImageUrl' />
+            <a href='@item.LinkUrl' target="_blank">@item.Title</a>
+            @Html.Paragraph(@item.Body)
+        </li>        
+    }
+</ul>

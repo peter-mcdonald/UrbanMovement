@@ -7,14 +7,20 @@ function siteInitialise() {
     $('.menuitem').click(function () {
         showPage($(this).data("page"));
     });
+
+    showPage("home");
 }
 
 function showPage(selectedPage) {
 
-    alert("selected page " + selectedPage);
+    log("Selected page " + selectedPage);
 
     switch (selectedPage) {
     
+        case "home":
+            homePage();
+            break;
+
         case "YouTubeRagz":
             youTubePageRagz();
             break;
@@ -26,14 +32,18 @@ function showPage(selectedPage) {
     }
 }
 
+function homePage() {
+    $.post("/Home/GetBlogPosts", function (data) {
+        appendData(data);
+    });
+}
+
 function youTubePageRagz() {
     
     $.post("/YouTube/YouMax", function (data) {
         appendData(data);
         prepareYoumax();
     });
-
-
 }
 
 function soundCloudInterviews() {
@@ -42,5 +52,6 @@ function soundCloudInterviews() {
 
 
 function appendData(data) {
+    $("#content").empty();
     $("#content").append(data);
 }

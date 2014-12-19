@@ -1,28 +1,20 @@
 ﻿using System.Web.Mvc;
+using UrbanMovement.Builders;
 
 namespace UrbanMovement.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : UmController
     {
+
         public ActionResult Index()
         {
-            ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
-
             return View();
         }
 
-        public ActionResult About()
+        public string GetBlogPosts()
         {
-            ViewBag.Message = "Your app description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            var model = new BlogPostBuilder().Build();
+            return RenderPartialViewToString("_BlogItems", model);
         }
     }
 }
