@@ -1,5 +1,10 @@
-﻿function getDataFromSoundcloud(id, appendTo) {
-    
+﻿// Find user id from name - needed for tracks.....
+// http://api.soundcloud.com/resolve.json?url=http://soundcloud.com/##USER-NAME##&client_id=2d7cc150f9e5813c0d93236b3312654c
+
+function getDataFromSoundcloud(id, appendTo) {
+
+    $(appendTo).empty();
+
     $.ajax({
         url: "http://api.soundcloud.com/users/" + id + "/tracks.json?client_id=2d7cc150f9e5813c0d93236b3312654c",
         async: true,

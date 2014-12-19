@@ -28,6 +28,18 @@ function showPage(selectedPage) {
         case "SoundCloudInterviews":
             soundCloudInterviews();
             break;
+            
+        case "MixCloudSooz":
+            mixCloudSooz();
+            break;
+            
+        case "DanceHall":
+            soundCloudDanceHall();
+            break;
+
+        case "MixCloudSoulful":
+            mixCloudSoulful();
+            break;
 
     }
 }
@@ -50,6 +62,17 @@ function soundCloudInterviews() {
     getDataFromSoundcloud("21788292", "#content");
 }
 
+function soundCloudDanceHall() {
+    getDataFromSoundcloud("57520629", "#content");
+}
+
+function mixCloudSooz() {
+    getDataFromMixcloud("suevmcdonald", "#content");
+}
+
+function mixCloudSoulful() {
+    getDataFromMixcloud("seanconradsmall", "#content");
+}
 
 function appendData(data) {
     $("#content").empty();

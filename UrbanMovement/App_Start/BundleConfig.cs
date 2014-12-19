@@ -21,6 +21,7 @@ namespace UrbanMovement
                 .Include("~/Scripts/menu.js")
                 .Include("~/Scripts/urbanmovement.js")
                 .Include("~/Scripts/soundcloud.js")
+                .Include("~/Scripts/mixcloud.js")
                 .Include("~/Scripts/consoleShim.js")
                 .Include("~/Scripts/youmax.js"));
 
