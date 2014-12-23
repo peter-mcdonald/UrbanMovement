@@ -1,9 +1,4 @@
-﻿//$(function () {
-//    siteInitialise();
-//});
-
-
-function siteInitialise() {
+﻿function siteInitialise() {
     $('.menuitem').click(function () {
         showPage($(this).data("page"));
     });
@@ -16,23 +11,31 @@ function showPage(selectedPage) {
     log("Selected page " + selectedPage);
 
     switch (selectedPage) {
-    
+
         case "home":
             homePage();
+            break;
+
+        case "events":
+            eventsPage();
+            break;
+            
+        case "bios":
+            biosPage();
             break;
 
         case "YouTubeRagz":
             youTubePageRagz();
             break;
-            
+
         case "SoundCloudInterviews":
             soundCloudInterviews();
             break;
-            
+
         case "MixCloudSooz":
             mixCloudSooz();
             break;
-            
+
         case "DanceHall":
             soundCloudDanceHall();
             break;
@@ -50,8 +53,20 @@ function homePage() {
     });
 }
 
+function eventsPage() {
+    $.post("/Events/Calendar", function (data) {
+        appendData(data);
+    });
+}
+
+function biosPage() {
+    $.post("/UrbanMovement/Biographies", function (data) {
+        appendData(data);
+    });
+}
+
 function youTubePageRagz() {
-    
+
     $.post("/YouTube/YouMax", function (data) {
         appendData(data);
         prepareYoumax();

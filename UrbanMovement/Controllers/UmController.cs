@@ -25,7 +25,7 @@ namespace UrbanMovement.Controllers
             }
         }
 
-        protected string RenderPartialViewToString(string viewName, object model)
+        protected string RenderPartialViewToString(string viewName, object model = null)
         {
             if (string.IsNullOrEmpty(viewName))
             {
