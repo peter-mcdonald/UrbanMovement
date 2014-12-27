@@ -23,12 +23,14 @@ namespace UrbanMovement
                 .Include("~/Scripts/soundcloud.js")
                 .Include("~/Scripts/mixcloud.js")
                 .Include("~/Scripts/consoleShim.js")
+                .Include("~/Scripts/social.js")
+                .Include("~/Scripts/famax.js")
                 .Include("~/Scripts/youmax.js"));
 
-            // Use the development version of Modernizr to develop with and learn from. Then, when you're
-            // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
-            bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
-                        "~/Scripts/modernizr-*"));
+            //// Use the development version of Modernizr to develop with and learn from. Then, when you're
+            //// ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
+            //bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
+            //            "~/Scripts/modernizr-*"));
 
             bundles.Add(new StyleBundle("~/Content/css")
                 .Include("~/Content/menu/font-awesome.css")

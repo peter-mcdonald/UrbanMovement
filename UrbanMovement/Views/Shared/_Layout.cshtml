@@ -8,32 +8,33 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
-<body>
-    <header>
-        <div class="logo">
-            <img src="../../Images/Logo/logo.png" alt="" style="display: block; margin: auto" />
-        </div>
-        <div id="menuwrap" class="float-left" style="width: 100%">
-            @{ Html.RenderPartial("_MenuBar"); }
-        </div>
-    </header>
-    <div id="body">
-        <section class="content-wrapper main-content clear-fix">
-            <div id="content" class="border float-left scrollable">
+    <body>
+        <div id="fb-root"></div>
+        <header>
+            <div class="logo">
+                <img src="../../Images/Logo/logo.png" alt="" style="display: block; margin: auto" />
             </div>
-        </section>
-    </div>
-    <footer>
-        <div class="content-wrapper">
-            <div class="float-left">
-                <p>&copy; @DateTime.Now.Year - Urban Movement</p>
+            <div id="menuwrap" class="float-left" style="width: 100%">
+                @{ Html.RenderPartial("_MenuBar"); }
             </div>
+        </header>
+        <div id="body">
+            <section class="content-wrapper main-content clear-fix">
+                <div id="content">
+                </div>
+            </section>
         </div>
-    </footer>
-    @RenderSection("scripts", false)
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/site")
-</body>
+        <footer>
+            <div class="content-wrapper">
+                <div class="float-left">
+                    <p>&copy; @DateTime.Now.Year - Urban Movement</p>
+                </div>
+            </div>
+        </footer>
+        @RenderSection("scripts", false)
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/site")
+    </body>
 <script type="text/javascript" src="http://www.google.com/recaptcha/api/js/recaptcha_ajax.js"></script>
 <script>
     $(function () {

@@ -185,6 +185,7 @@
     <Compile Include="Builders\BlogPostBuilder.cs" />
     <Compile Include="Controllers\EventsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SocialController.cs" />
     <Compile Include="Controllers\UmController.cs" />
     <Compile Include="Controllers\UrbanMovementController.cs" />
     <Compile Include="Controllers\YouTubeController.cs" />
@@ -264,11 +265,16 @@
     <Content Include="Content\fonts\fontawesome-webfont.woff" />
     <Content Include="Content\fonts\FontAwesome.otf" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
+    <Content Include="Images\famax_link.png" />
+    <Content Include="Images\famax_video.png" />
+    <Content Include="Images\Loader\famax-loader.gif" />
     <Content Include="Images\Logo\logo-gradient.png" />
     <Content Include="Images\Logo\logo.gif" />
     <Content Include="Images\Logo\logo.png" />
+    <Content Include="Images\Social\Sooz.png" />
     <Content Include="Images\UM-Headphones.jpg" />
     <Content Include="Scripts\consoleShim.js" />
+    <Content Include="Scripts\famax.js" />
     <Content Include="Scripts\menu.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
@@ -285,6 +291,7 @@
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\mixcloud.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\Social.js" />
     <Content Include="Scripts\soundcloud.js" />
     <Content Include="Scripts\urbanmovement.js" />
     <Content Include="Scripts\youmax.js" />
@@ -300,12 +307,15 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\Shared\_MenuBar.cshtml" />
     <Content Include="Views\Shared\_BlogItems.cshtml" />
     <Content Include="Views\Shared\_Events.cshtml" />
+    <Content Include="Views\Shared\_UrbanSocial.cshtml" />
+    <Content Include="Views\Shared\_SoozSocial.cshtml" />
+    <Content Include="Views\Shared\_RagzSocial.cshtml" />
+    <Content Include="Views\Shared\_SoulChildSocial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

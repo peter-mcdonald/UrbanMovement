@@ -1,4 +1,16 @@
 ﻿function siteInitialise() {
+
+    TwitterFollow(document, 'script', 'twitter-wjs');
+    facebook(document, 'script', 'facebook-jssdk');
+
+    window.fbAsyncInit = function () {
+        FB.init({
+            appId: '936539446373269',
+            xfbml: true,
+            version: 'v2.0'
+        });
+    };
+
     $('.menuitem').click(function () {
         showPage($(this).data("page"));
     });
@@ -19,7 +31,7 @@ function showPage(selectedPage) {
         case "events":
             eventsPage();
             break;
-            
+
         case "bios":
             biosPage();
             break;
@@ -44,11 +56,31 @@ function showPage(selectedPage) {
             mixCloudSoulful();
             break;
 
+        case "UrbanSocial":
+            socialUrban();
+            break;
+        case "SoozSocial":
+            socialSooz();
+            break;
+        case "SoulChildSocial":
+            socialSoulChild();
+            break;
+        case "RagzSocial":
+            socialRagz();
+            break;
     }
+
+
+    //https://www.facebook.com/soulfullivingradioshow
+    //https://www.facebook.com/urbanmovementents
+    //https://www.facebook.com/soozgrooves
+    //https://www.facebook.com/DancehallAndTingRadioShow
+
 }
 
 function homePage() {
     $.post("/Home/GetBlogPosts", function (data) {
+        setContentClasses("vticker");
         appendData(data);
     });
 }
@@ -61,7 +93,10 @@ function eventsPage() {
 
 function biosPage() {
     $.post("/UrbanMovement/Biographies", function (data) {
-        appendData(data);
+        setContentClasses("");
+        var bios = $("<div id='biography'></div>");
+        $(bios).append(data);
+        appendData(bios);
     });
 }
 
@@ -87,6 +122,49 @@ function mixCloudSooz() {
 
 function mixCloudSoulful() {
     getDataFromMixcloud("seanconradsmall", "#content");
+}
+
+function socialUrban() {
+    $.post("/Social/UrbanMovement", function (data) {
+        appendData(data);
+        reLoadWidgets();
+        prepareFamax("https://www.facebook.com/urbanmovementents", "urbanmovementents");
+    });
+}
+
+function socialSooz() {
+    $.post("/Social/Sooz", function (data) {
+        appendData(data);
+        reLoadWidgets();
+        prepareFamax("https://www.facebook.com/soozgrooves", "soozgrooves");
+    });
+}
+
+function socialSoulChild() {
+    $.post("/Social/SoulChild", function (data) {
+        appendData(data);
+        reLoadWidgets();
+        prepareFamax("https://www.facebook.com/soulfullivingradioshow", "soulfullivingradioshow");
+    });
+}
+
+function socialRagz() {
+    $.post("/Social/Ragz", function (data) {
+        appendData(data);
+        reLoadWidgets();
+        prepareFamax("https://www.facebook.com/DancehallAndTingRadioShow", "DancehallAndTingRadioShow");
+    });
+}
+
+
+function reLoadWidgets() {
+    twttr.widgets.load();
+    FB.XFBML.parse();
+}
+
+function setContentClasses(classes) {
+    var allClasses = "border float-left scrollable " + classes;
+    $("#content").attr("class", allClasses);
 }
 
 function appendData(data) {
