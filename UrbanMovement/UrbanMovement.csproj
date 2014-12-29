@@ -183,6 +183,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Builders\BiographyBuilder.cs" />
     <Compile Include="Builders\BlogPostBuilder.cs" />
+    <Compile Include="Builders\AboutBuilder.cs" />
     <Compile Include="Controllers\EventsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SocialController.cs" />

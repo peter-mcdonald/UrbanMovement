@@ -8,5 +8,10 @@ namespace UrbanMovement.Controllers
         {
             return new BiographyBuilder().Build();
         }
+
+        public string About()
+        {
+            return new AboutBuilder().Build();
+        }
     }
 }

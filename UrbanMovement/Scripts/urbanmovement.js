@@ -22,6 +22,9 @@ function showPage(selectedPage) {
 
     log("Selected page " + selectedPage);
 
+    //Start spinner
+    emptyContent();
+
     switch (selectedPage) {
 
         case "home":
@@ -34,6 +37,10 @@ function showPage(selectedPage) {
 
         case "bios":
             biosPage();
+            break;
+
+        case "ume":
+            aboutPage();
             break;
 
         case "YouTubeRagz":
@@ -100,6 +107,16 @@ function biosPage() {
     });
 }
 
+function aboutPage() {
+    $.post("/UrbanMovement/About", function (data) {
+        log(data);
+        setContentClasses("");
+        //var bios = $("<div id='biography'></div>");
+        //$(bios).append(data);
+        appendData(data);
+    });
+}
+
 function youTubePageRagz() {
 
     $.post("/YouTube/YouMax", function (data) {
@@ -125,6 +142,7 @@ function mixCloudSoulful() {
 }
 
 function socialUrban() {
+
     $.post("/Social/UrbanMovement", function (data) {
         appendData(data);
         reLoadWidgets();
@@ -133,6 +151,7 @@ function socialUrban() {
 }
 
 function socialSooz() {
+
     $.post("/Social/Sooz", function (data) {
         appendData(data);
         reLoadWidgets();
@@ -141,6 +160,7 @@ function socialSooz() {
 }
 
 function socialSoulChild() {
+
     $.post("/Social/SoulChild", function (data) {
         appendData(data);
         reLoadWidgets();
@@ -149,6 +169,7 @@ function socialSoulChild() {
 }
 
 function socialRagz() {
+
     $.post("/Social/Ragz", function (data) {
         appendData(data);
         reLoadWidgets();
@@ -167,7 +188,10 @@ function setContentClasses(classes) {
     $("#content").attr("class", allClasses);
 }
 
-function appendData(data) {
+function emptyContent() {
     $("#content").empty();
+}
+
+function appendData(data) {
     $("#content").append(data);
 }
