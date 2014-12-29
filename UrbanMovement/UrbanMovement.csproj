@@ -266,6 +266,7 @@
     <Content Include="Content\fonts\fontawesome-webfont.woff" />
     <Content Include="Content\fonts\FontAwesome.otf" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
+    <Content Include="Images\body-gradient.png" />
     <Content Include="Images\famax_link.png" />
     <Content Include="Images\famax_video.png" />
     <Content Include="Images\Loader\famax-loader.gif" />
@@ -273,9 +274,12 @@
     <Content Include="Images\Logo\logo.gif" />
     <Content Include="Images\Logo\logo.png" />
     <Content Include="Images\Social\Sooz.png" />
+    <Content Include="Images\spinner.GIF" />
     <Content Include="Images\UM-Headphones.jpg" />
     <Content Include="Scripts\consoleShim.js" />
     <Content Include="Scripts\famax.js" />
+    <Content Include="Scripts\jquery.easing.1.3.js" />
+    <Content Include="Scripts\jquery.easy-ticker.js" />
     <Content Include="Scripts\menu.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />

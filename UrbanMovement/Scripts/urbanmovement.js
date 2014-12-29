@@ -22,7 +22,7 @@ function showPage(selectedPage) {
 
     log("Selected page " + selectedPage);
 
-    //Start spinner
+    startSpinner();
     emptyContent();
 
     switch (selectedPage) {
@@ -66,41 +66,54 @@ function showPage(selectedPage) {
         case "UrbanSocial":
             socialUrban();
             break;
+
         case "SoozSocial":
             socialSooz();
             break;
+
         case "SoulChildSocial":
             socialSoulChild();
             break;
+
         case "RagzSocial":
             socialRagz();
             break;
     }
-
-
-    //https://www.facebook.com/soulfullivingradioshow
-    //https://www.facebook.com/urbanmovementents
-    //https://www.facebook.com/soozgrooves
-    //https://www.facebook.com/DancehallAndTingRadioShow
-
 }
 
 function homePage() {
+
+    var tickerOpts = {
+        direction: 'up',
+        easing: 'easeInOutSine',
+        speed: 'slow',
+        interval: 3000,
+        height: 450,
+        visible: 3,
+        mousePause: true,
+    };
+
+    setContentClasses("vticker");
+
     $.post("/Home/GetBlogPosts", function (data) {
-        setContentClasses("vticker");
         appendData(data);
+        stopSpinner();
+        $('.vticker').easyTicker(tickerOpts);
     });
 }
 
 function eventsPage() {
+    setContentClasses("");
     $.post("/Events/Calendar", function (data) {
         appendData(data);
     });
 }
 
 function biosPage() {
+    setContentClasses("scrollable");
+
     $.post("/UrbanMovement/Biographies", function (data) {
-        setContentClasses("");
+        setContentClasses("scrollable");
         var bios = $("<div id='biography'></div>");
         $(bios).append(data);
         appendData(bios);
@@ -108,6 +121,8 @@ function biosPage() {
 }
 
 function aboutPage() {
+    setContentClasses("scrollable");
+
     $.post("/UrbanMovement/About", function (data) {
         log(data);
         setContentClasses("");
@@ -118,7 +133,7 @@ function aboutPage() {
 }
 
 function youTubePageRagz() {
-
+    setContentClasses("scrollable");
     $.post("/YouTube/YouMax", function (data) {
         appendData(data);
         prepareYoumax();
@@ -126,23 +141,30 @@ function youTubePageRagz() {
 }
 
 function soundCloudInterviews() {
+    setContentClasses("scrollable");
     getDataFromSoundcloud("21788292", "#content");
 }
 
 function soundCloudDanceHall() {
+    setContentClasses("scrollable");
     getDataFromSoundcloud("57520629", "#content");
 }
 
 function mixCloudSooz() {
+    setContentClasses("scrollable");
     getDataFromMixcloud("suevmcdonald", "#content");
 }
 
 function mixCloudSoulful() {
+    setContentClasses("scrollable");
+
+
     getDataFromMixcloud("seanconradsmall", "#content");
 }
 
 function socialUrban() {
-
+    setContentClasses("");
+    $("#content").css("height", "595px");
     $.post("/Social/UrbanMovement", function (data) {
         appendData(data);
         reLoadWidgets();
@@ -151,7 +173,8 @@ function socialUrban() {
 }
 
 function socialSooz() {
-
+    setContentClasses("");
+    $("#content").css("height", "595px");
     $.post("/Social/Sooz", function (data) {
         appendData(data);
         reLoadWidgets();
@@ -160,7 +183,8 @@ function socialSooz() {
 }
 
 function socialSoulChild() {
-
+    setContentClasses("");
+    $("#content").css("height", "595px");
     $.post("/Social/SoulChild", function (data) {
         appendData(data);
         reLoadWidgets();
@@ -169,7 +193,8 @@ function socialSoulChild() {
 }
 
 function socialRagz() {
-
+    setContentClasses("");
+    $("#content").css("height", "595px");
     $.post("/Social/Ragz", function (data) {
         appendData(data);
         reLoadWidgets();
@@ -177,6 +202,13 @@ function socialRagz() {
     });
 }
 
+function startSpinner() {
+    $("#spinner").fadeIn('fast');
+}
+
+function stopSpinner() {
+    $("#spinner").hide();
+}
 
 function reLoadWidgets() {
     twttr.widgets.load();
@@ -184,11 +216,13 @@ function reLoadWidgets() {
 }
 
 function setContentClasses(classes) {
-    var allClasses = "border float-left scrollable " + classes;
+    var allClasses = "border float-left " + classes;
     $("#content").attr("class", allClasses);
 }
 
 function emptyContent() {
+    $("#content").removeAttr("style");
+    $('.vticker').removeData();
     $("#content").empty();
 }
 

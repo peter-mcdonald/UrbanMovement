@@ -130,7 +130,8 @@ h5, h6
 
 #body
 {
-    background-color: #969696;
+    background: repeat url(/Images/body-gradient.png);
+    /*background-color: #969696;*/
     clear: both;
     padding-bottom: 35px;
 }
@@ -216,7 +217,7 @@ footer
         margin: 0;
         padding: 20px;
         display: list-item;
-        border-bottom: 1px dashed #ccc;
+        border-bottom: 1px dotted #ccc;
     }
 
         .vticker li:after
@@ -535,6 +536,20 @@ footer
     margin-top: 15px;
 }
 
+.spinner {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-left: -64px; /* half width of the spinner gif */
+    margin-top: -64px; /* half height of the spinner gif */
+    text-align:center;
+    z-index:1234;
+    /*overflow: auto;*/
+    width: 128px; /* width of the spinner gif */
+    height: 130px; /*hight of the spinner gif +2px to fix IE8 issue */
+}
+
+
 /* page elements
 ----------------------------------------------------------*/
 /* featured */
@@ -689,68 +704,6 @@ aside
     overflow-y: auto !important;
     color: whitesmoke;
 }
-
-/*.scrollable td:nth-child(1)
-    {
-        width: 15%;
-        text-align: center;
-    }
-
-
-    .scrollable td:nth-child(2)
-    {
-        width: 55%;
-    }
-
-    .scrollable td:nth-child(3)
-    {
-        font-family: Arial, sans-serif;
-        font-size: 15px;
-        width: 30%;
-    }
-
-    .scrollable p
-    {
-        padding: 5px 5px 5px 10px;
-    }
-
-    .scrollable table
-    {
-        width: 100%;
-        border-collapse: collapse;
-        border-spacing: 0;
-    }
-
-    .scrollable tbody
-    {
-        overflow-y: auto;
-        display: block;
-    }
-
-    .scrollable td
-    {
-        padding: 1px;
-    }
-
-    .scrollable img
-    {
-        width: 100px;
-        height: 100px;
-        padding: 5px;
-    }
-
-    .scrollable tr
-    {
-        border-bottom: dashed 1px whitesmoke;
-    }
-
-    .scrollable a
-    {
-        font-family: Arial, sans-serif;
-        font-size: 15px;
-        font-weight: bold;
-        color: red;
-    }*/
 
 /* Centre alignment */
 .center

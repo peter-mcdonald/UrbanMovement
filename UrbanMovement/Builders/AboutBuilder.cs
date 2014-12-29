@@ -6,11 +6,11 @@ namespace UrbanMovement.Builders
 {
     public class AboutBuilder
     {
-        public string Build()
+        public MvcHtmlString Build()
         {
             if (SessionHelper.Exists("About"))
             {
-                return SessionHelper.Get<string>("About");
+                return SessionHelper.Get<MvcHtmlString>("About");
             }
 
             var content = string.Empty;
@@ -28,7 +28,7 @@ namespace UrbanMovement.Builders
 
             SessionHelper.Add("About", result);
 
-            return result.ToString();
+            return result;
         }
     }
 }

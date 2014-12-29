@@ -11,7 +11,7 @@ namespace UrbanMovement.Controllers
 
         public string About()
         {
-            return new AboutBuilder().Build();
+            return new AboutBuilder().Build().ToString();
         }
     }
 }
