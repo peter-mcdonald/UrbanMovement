@@ -203,11 +203,13 @@ function socialRagz() {
 }
 
 function startSpinner() {
-    $("#spinner").fadeIn('fast');
+    $('#content').addClass("spinner");
+
+    //$("#spinner").fadeIn('fast');
 }
 
 function stopSpinner() {
-    $("#spinner").hide();
+    //$("#spinner").hide();
 }
 
 function reLoadWidgets() {

@@ -1,4 +1,5 @@
 ﻿using System.Net.Http;
+using System.Text.RegularExpressions;
 using UrbanMovement.Helpers;
 
 namespace UrbanMovement.Builders
@@ -17,7 +18,7 @@ namespace UrbanMovement.Builders
             using (var client = new HttpClient())
             {
                 var response = client.GetAsync("http://urbanmovemententertainment.wordpress.com/biography/").Result;
-                content = response.Content.ReadAsStringAsync().Result;
+                content = RemoveAnchors(response.Content.ReadAsStringAsync().Result);
             }
 
             var start = content.IndexOf(@"<!--fromhere-->") + 15;
@@ -28,6 +29,11 @@ namespace UrbanMovement.Builders
             SessionHelper.Add("Biography", result);
 
             return result;
+        }
+
+        string RemoveAnchors(string text)
+        {
+            return Regex.Replace(text, @"<a.*?</a>", string.Empty, RegexOptions.IgnoreCase);  
         }
     }
 }
