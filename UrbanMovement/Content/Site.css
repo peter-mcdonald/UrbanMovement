@@ -544,21 +544,43 @@ footer
     margin-top: 15px;
 }
 
-.spinner
-{
-    background: url(../Images/spinner.GIF);
+#spinner
+{   
+    background-image: url(../Images/spinner.GIF);
     position: relative;
     top: 50%;
-    left: 50%;
-    margin-left: -64px; /* half width of the spinner gif */
-    margin-top: -19px; /* half height of the spinner gif */
+    left: 0;
+    margin: auto;
     text-align: center;
-    z-index: 1234;
+    z-index: 9999;
     /*overflow: auto;*/
     width: 128px; /* width of the spinner gif */
     height: 38px; /*hight of the spinner gif +2px to fix IE8 issue */
 }
-
+.border-message
+{
+    display: none;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    vertical-align: middle;
+    position: relative;
+    width: 90%;
+    color: whitesmoke;
+    font-size: 2em;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    -ms-border-radius: 6px;
+    border-radius: 6px;
+    border: 9px solid #353535;
+    border-bottom-width: 8px;
+    background:  #818286;
+    -webkit-box-shadow: 0 -1px 0 #5b5b5b inset, 0 5px 15px rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: 0 -1px 0 #5b5b5b inset, 0 5px 15px rgba(0, 0, 0, 0.4);
+    -ms-box-shadow: 0 -1px 0 #5b5b5b inset, 0 5px 15px rgba(0, 0, 0, 0.4);
+    -o-box-shadow: 0 -1px 0 #5b5b5b inset, 0 5px 15px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 -1px 0 #5b5b5b inset, 0 5px 15px rgba(0, 0, 0, 0.4);
+}
 
 /* page elements
 ----------------------------------------------------------*/

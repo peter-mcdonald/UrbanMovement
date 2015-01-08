@@ -22,8 +22,8 @@ function showPage(selectedPage) {
 
     log("Selected page " + selectedPage);
 
-    startSpinner();
     emptyContent();
+    startSpinner();
 
     switch (selectedPage) {
 
@@ -78,6 +78,10 @@ function showPage(selectedPage) {
         case "RagzSocial":
             socialRagz();
             break;
+            
+        case "Contact":
+            contactPage();
+            break;
     }
 }
 
@@ -105,6 +109,7 @@ function homePage() {
 function eventsPage() {
     setContentClasses("");
     $.post("/Events/Calendar", function (data) {
+        stopSpinner();
         appendData(data);
     });
 }
@@ -114,9 +119,7 @@ function biosPage() {
 
     $.post("/UrbanMovement/Biographies", function (data) {
         setContentClasses("scrollable");
-        var bios = $("<div id='biography'></div>");
-        $(bios).append(data);
-        appendData(bios);
+        appendData(data);
     });
 }
 
@@ -124,10 +127,6 @@ function aboutPage() {
     setContentClasses("scrollable");
 
     $.post("/UrbanMovement/About", function (data) {
-        log(data);
-        setContentClasses("");
-        //var bios = $("<div id='biography'></div>");
-        //$(bios).append(data);
         appendData(data);
     });
 }
@@ -157,8 +156,6 @@ function mixCloudSooz() {
 
 function mixCloudSoulful() {
     setContentClasses("scrollable");
-
-
     getDataFromMixcloud("seanconradsmall", "#content");
 }
 
@@ -203,18 +200,77 @@ function socialRagz() {
 }
 
 function startSpinner() {
-    $('#content').addClass("spinner");
-
-    //$("#spinner").fadeIn('fast');
+    var $div = $("<div>", { id: "spinner"});
+    $('#content').append($div);
 }
 
 function stopSpinner() {
-    //$("#spinner").hide();
+    $("#spinner").remove();
 }
 
 function reLoadWidgets() {
     twttr.widgets.load();
     FB.XFBML.parse();
+}
+
+function setCaptcha() {
+    Recaptcha.create("6LegLAATAAAAAMMk-cKmyFy3QlIF3Fd9NNSRkJp6",
+        "recaptcha",
+        {
+            theme: "blackglass",
+            callback: Recaptcha.focus_response_field
+        }
+    );
+}
+
+function contactPage() {
+    setContentClasses("");
+
+    $.post("/Contact/GetContactView", function (data) {
+        stopSpinner();
+        appendData(data);
+        setCaptcha();
+        $.validator.unobtrusive.parse($("#contactForm"));
+    });
+}
+
+
+function SetContactData() {
+    $("#contactdata").hide();
+    setCaptchaMessage("");
+    //spinner.spin(document.getElementById("content"));
+    return true;
+}
+
+function CheckCaptchaMessage(data) {
+    stopSpinner();
+    if (data === "") {
+        ClearForm();
+        ThankYouMessage();
+    } else {
+        setCaptchaMessage(data);
+    }
+    $("#contactdata").fadeIn('fast');
+}
+
+function ClearForm() {
+    $("#contactForm").find('input:text, input:password, input:file, select, textarea').val('');
+    $("#contactForm").find('input:radio, input:checkbox').removeAttr('checked').removeAttr('selected');
+    $("#Phone").val('');
+    $('#Email').val('');
+    Recaptcha.reload();
+}
+
+function ThankYouMessage() {
+    $('#sentMessage').slideDown('slow', function () {
+        setTimeout(function () {
+            $('#sentMessage').slideUp('slow');
+        }, 5000);
+    });
+}
+
+function setCaptchaMessage(message) {
+    $('#captchaMessage').text(message);
 }
 
 function setContentClasses(classes) {

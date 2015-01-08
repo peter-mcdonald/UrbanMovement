@@ -1,0 +1,93 @@
+﻿@using System.Web.Mvc.Ajax
+@using UrbanMovement.Helpers
+@model UrbanMovement.Models.Contact
+
+@using (Ajax.BeginForm("ContactUs", "contact", new AjaxOptions() { HttpMethod = "Post", OnBegin = "SetContactData", OnSuccess = "CheckCaptchaMessage" }, new { id = "contactForm" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset id="contactus">
+        <legend></legend>
+        <table id="contactdata">
+            <tr>
+                <td>
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.Name)
+                    </div>
+                </td>
+                <td>
+                    <div class="editor-field">
+                        @Html.EditorFor(model => model.Name)
+                    </div>
+                </td>
+                <td>@Html.ValidationMessageFor(model => model.Name)</td>
+            </tr>
+
+            <tr>
+                <td>
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.Phone)
+                    </div>
+                </td>
+                <td>
+                    <div class="editor-field">
+                        @Html.EditorFor(model => model.Phone)
+                    </div>
+                </td>
+                <td>@Html.ValidationMessageFor(model => model.Phone)</td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.Email)
+                    </div>
+                </td>
+                <td>
+                    <div class="editor-field">
+                        @Html.EditorFor(model => model.Email)
+                    </div>
+                </td>
+                <td>@Html.ValidationMessageFor(model => model.Email)</td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.Subject)
+                    </div>
+                </td>
+                <td>
+                    <div class="editor-field">
+                        @Html.EditorFor(model => model.Subject)
+                    </div>
+                </td>
+                <td>@Html.ValidationMessageFor(model => model.Subject)</td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.Message)
+                    </div>
+                </td>
+                <td>
+                    <div class="editor-field">
+                        @Html.TextAreaFor(model => model.Message)
+                    </div>
+                </td>
+                <td>@Html.ValidationMessageFor(model => model.Message)</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td id="recaptcha">
+                </td>
+                <td>@Html.Div("", "field-validation-error", "captchaMessage")</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <input type="submit" class="float-right" value="Send" style="width: 512px" />
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+}

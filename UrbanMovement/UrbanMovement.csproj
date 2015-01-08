@@ -40,6 +40,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Recaptcha.Web, Version=1.6.0.0, Culture=neutral, PublicKeyToken=0ada796c36892e79, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Recaptcha for .NET 1.6.0\v4.0\Recaptcha.Web.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
@@ -184,18 +188,22 @@
     <Compile Include="Builders\BiographyBuilder.cs" />
     <Compile Include="Builders\BlogPostBuilder.cs" />
     <Compile Include="Builders\AboutBuilder.cs" />
+    <Compile Include="Builders\EmailBuilder.cs" />
+    <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\EventsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SocialController.cs" />
     <Compile Include="Controllers\UmController.cs" />
     <Compile Include="Controllers\UrbanMovementController.cs" />
     <Compile Include="Controllers\YouTubeController.cs" />
+    <Compile Include="Extentions\TagExtentions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\HtmlHelpers.cs" />
     <Compile Include="Helpers\SessionHelper.cs" />
     <Compile Include="Models\BlogItem.cs" />
+    <Compile Include="Models\Contact.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -276,6 +284,7 @@
     <Content Include="Images\Social\Sooz.png" />
     <Content Include="Images\spinner.GIF" />
     <Content Include="Images\UM-Headphones.jpg" />
+    <Content Include="Recaptcha for .NET 1.6.0\v4.0\Recaptcha.Web.dll" />
     <Content Include="Scripts\consoleShim.js" />
     <Content Include="Scripts\famax.js" />
     <Content Include="Scripts\jquery.easing.1.3.js" />
@@ -320,6 +329,7 @@
     <Content Include="Views\Shared\_SoozSocial.cshtml" />
     <Content Include="Views\Shared\_RagzSocial.cshtml" />
     <Content Include="Views\Shared\_SoulChildSocial.cshtml" />
+    <Content Include="Views\Shared\_Contact.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
