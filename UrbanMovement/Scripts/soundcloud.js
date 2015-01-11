@@ -11,6 +11,7 @@ function getDataFromSoundcloud(id, appendTo) {
         cache: true,
         success: function (data) {
             processTracks(data, appendTo);
+            stopSpinner();
         },
         dataType: 'json',
         beforeSend: setHeader

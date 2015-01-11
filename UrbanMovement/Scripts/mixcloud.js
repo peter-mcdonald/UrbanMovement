@@ -8,6 +8,7 @@
         cache: true,
         success: function (data) {
             processMixCloudTracks(data, appendTo);
+            stopSpinner();
         },
         dataType: 'json',
         beforeSend: setHeader

@@ -27,6 +27,9 @@ namespace UrbanMovement
                 .Include("~/Scripts/famax.js")
                 .Include("~/Scripts/jquery.easy-ticker.js")
                 .Include("~/Scripts/jquery.easing.1.3.js")
+                .Include("~/Scripts/parseUri-1.2.2.js")
+                .Include("~/Scripts/history.js/history.js")
+                .Include("~/Scripts/history.js/history.adapter.jquery.js")
                 .Include("~/Scripts/youmax.js"));
 
             //// Use the development version of Modernizr to develop with and learn from. Then, when you're

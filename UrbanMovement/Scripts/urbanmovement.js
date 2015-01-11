@@ -1,4 +1,24 @@
-﻿function siteInitialise() {
+﻿var historyJs;
+var firstPage = false;
+
+pages = {
+    home: function () {
+        this.setAddress("Home", "?page=home");
+    },
+    events: function () {
+        this.setAddress("Events", "?page=events");
+    },
+
+    setAddress: function (text, uri) {
+        if (firstPage) {
+            return;
+        }
+        historyJs.pushState(null, text, uri);
+    }
+};
+
+
+function siteInitialise() {
 
     TwitterFollow(document, 'script', 'twitter-wjs');
     facebook(document, 'script', 'facebook-jssdk');
@@ -15,8 +35,30 @@
         showPage($(this).data("page"));
     });
 
+    historyJs = window.History;
+    var state = historyJs.getState();
+
+    if (state.url.indexOf("?") === -1) {
+        pages.home();
+        firstPage = true;
+    }
+
+    historyJs.Adapter.bind(window, 'statechange', function () {
+        log("***statechange***");
+        getPageFromUrl(historyJs.getState().url);
+    });
+
+    var page = getPageFromUrl(historyJs.getState().url);
+
     showPage("home");
 }
+
+function getPageFromUrl(url) {
+    var parts = parseUri(url);
+
+    log(parts.queryKey.page);
+}
+
 
 function showPage(selectedPage) {
 
@@ -78,14 +120,18 @@ function showPage(selectedPage) {
         case "RagzSocial":
             socialRagz();
             break;
-            
+
         case "Contact":
             contactPage();
             break;
     }
+    
+    firstPage = false;
 }
 
 function homePage() {
+
+    pages.home();
 
     var tickerOpts = {
         direction: 'up',
@@ -107,6 +153,7 @@ function homePage() {
 }
 
 function eventsPage() {
+    pages.events();
     setContentClasses("");
     $.post("/Events/Calendar", function (data) {
         stopSpinner();
@@ -118,7 +165,7 @@ function biosPage() {
     setContentClasses("scrollable");
 
     $.post("/UrbanMovement/Biographies", function (data) {
-        setContentClasses("scrollable");
+        stopSpinner();
         appendData(data);
     });
 }
@@ -127,6 +174,7 @@ function aboutPage() {
     setContentClasses("scrollable");
 
     $.post("/UrbanMovement/About", function (data) {
+        stopSpinner();
         appendData(data);
     });
 }
@@ -134,6 +182,7 @@ function aboutPage() {
 function youTubePageRagz() {
     setContentClasses("scrollable");
     $.post("/YouTube/YouMax", function (data) {
+        stopSpinner();
         appendData(data);
         prepareYoumax();
     });
@@ -163,6 +212,7 @@ function socialUrban() {
     setContentClasses("");
     $("#content").css("height", "595px");
     $.post("/Social/UrbanMovement", function (data) {
+        stopSpinner();
         appendData(data);
         reLoadWidgets();
         prepareFamax("https://www.facebook.com/urbanmovementents", "urbanmovementents");
@@ -173,6 +223,7 @@ function socialSooz() {
     setContentClasses("");
     $("#content").css("height", "595px");
     $.post("/Social/Sooz", function (data) {
+        stopSpinner();
         appendData(data);
         reLoadWidgets();
         prepareFamax("https://www.facebook.com/soozgrooves", "soozgrooves");
@@ -183,6 +234,7 @@ function socialSoulChild() {
     setContentClasses("");
     $("#content").css("height", "595px");
     $.post("/Social/SoulChild", function (data) {
+        stopSpinner();
         appendData(data);
         reLoadWidgets();
         prepareFamax("https://www.facebook.com/soulfullivingradioshow", "soulfullivingradioshow");
@@ -193,6 +245,7 @@ function socialRagz() {
     setContentClasses("");
     $("#content").css("height", "595px");
     $.post("/Social/Ragz", function (data) {
+        stopSpinner();
         appendData(data);
         reLoadWidgets();
         prepareFamax("https://www.facebook.com/DancehallAndTingRadioShow", "DancehallAndTingRadioShow");
@@ -200,7 +253,7 @@ function socialRagz() {
 }
 
 function startSpinner() {
-    var $div = $("<div>", { id: "spinner"});
+    var $div = $("<div>", { id: "spinner" });
     $('#content').append($div);
 }
 
@@ -238,7 +291,7 @@ function contactPage() {
 function SetContactData() {
     $("#contactdata").hide();
     setCaptchaMessage("");
-    //spinner.spin(document.getElementById("content"));
+    startSpinner();
     return true;
 }
 
