@@ -1,27 +1,41 @@
 ﻿var historyJs;
-var firstPage = false;
+
+var arr = {
+    "home": "Home",
+    "events": "Events",
+    "about": "About",
+    "bios": "Biographies",
+    "youtuberagz": "Dancehall & Ting",
+    "scinterviews": "Interviews",
+    "mcsooz": "Sooz Grooves",
+    "mcdancehall": "Dancehall & Ting",
+    "mcsoulful": "Souful Living",
+    "urbansocial": "Social",
+    "soozsocial": "Social",
+    "soulchildsocial": "Social",
+    "ragzsocial": "Social",
+    "contact": "Contact"
+};
 
 pages = {
-    home: function () {
-        this.setAddress("Home", "?page=home");
+    change: function(newPage) {
+        this.setAddress(arr[newPage], newPage);
     },
-    events: function () {
-        this.setAddress("Events", "?page=events");
+    home: function() {
+        this.setAddress("Welcome", "home");
     },
-
-    setAddress: function (text, uri) {
-        if (firstPage) {
-            return;
-        }
-        historyJs.pushState(null, text, uri);
+    replacewithhome: function() {
+        historyJs.replaceState(null, "Home", "?page=home");
+    },
+    setAddress: function (text, page) {
+        historyJs.pushState(null, text, "?page=" + page);
     }
 };
 
 
 function siteInitialise() {
-
-    TwitterFollow(document, 'script', 'twitter-wjs');
     facebook(document, 'script', 'facebook-jssdk');
+    TwitterFollow(document, 'script', 'twitter-wjs');
 
     window.fbAsyncInit = function () {
         FB.init({
@@ -32,38 +46,39 @@ function siteInitialise() {
     };
 
     $('.menuitem').click(function () {
-        showPage($(this).data("page"));
+        pages.change($(this).data("page"));
     });
 
+    initialiseHistory();
+
+    setFirstPage();
+}
+
+function initialiseHistory() {
     historyJs = window.History;
+
+    historyJs.Adapter.bind(window, 'statechange', function () {
+        showPage(getPageFromUrl(historyJs.getState().url));
+    });
+}
+
+function setFirstPage() {
     var state = historyJs.getState();
 
     if (state.url.indexOf("?") === -1) {
         pages.home();
-        firstPage = true;
+    } else {
+        showPage(getPageFromUrl(historyJs.getState().url));
     }
-
-    historyJs.Adapter.bind(window, 'statechange', function () {
-        log("***statechange***");
-        getPageFromUrl(historyJs.getState().url);
-    });
-
-    var page = getPageFromUrl(historyJs.getState().url);
-
-    showPage("home");
 }
 
 function getPageFromUrl(url) {
-    var parts = parseUri(url);
-
-    log(parts.queryKey.page);
+    var parts = parseUri(url);    
+    return parts.queryKey.page;
 }
 
-
 function showPage(selectedPage) {
-
-    log("Selected page " + selectedPage);
-
+    
     emptyContent();
     startSpinner();
 
@@ -81,57 +96,56 @@ function showPage(selectedPage) {
             biosPage();
             break;
 
-        case "ume":
+        case "about":
             aboutPage();
             break;
 
-        case "YouTubeRagz":
+        case "youtuberagz":
             youTubePageRagz();
             break;
 
-        case "SoundCloudInterviews":
+        case "scinterviews":
             soundCloudInterviews();
             break;
 
-        case "MixCloudSooz":
+        case "mcsooz":
             mixCloudSooz();
             break;
 
-        case "DanceHall":
+        case "scdancehall":
             soundCloudDanceHall();
             break;
 
-        case "MixCloudSoulful":
+        case "mcsoulful":
             mixCloudSoulful();
             break;
 
-        case "UrbanSocial":
+        case "urbansocial":
             socialUrban();
             break;
 
-        case "SoozSocial":
+        case "soozsocial":
             socialSooz();
             break;
 
-        case "SoulChildSocial":
+        case "soulchildsocial":
             socialSoulChild();
             break;
 
-        case "RagzSocial":
+        case "ragzsocial":
             socialRagz();
             break;
 
-        case "Contact":
+        case "contact":
             contactPage();
             break;
+        default:
+            pages.replacewithhome();
     }
-    
-    firstPage = false;
+
 }
 
 function homePage() {
-
-    pages.home();
 
     var tickerOpts = {
         direction: 'up',
@@ -153,7 +167,7 @@ function homePage() {
 }
 
 function eventsPage() {
-    pages.events();
+    
     setContentClasses("");
     $.post("/Events/Calendar", function (data) {
         stopSpinner();
@@ -252,6 +266,17 @@ function socialRagz() {
     });
 }
 
+function contactPage() {
+    setContentClasses("");
+
+    $.post("/Contact/GetContactView", function (data) {
+        stopSpinner();
+        appendData(data);
+        setCaptcha();
+        $.validator.unobtrusive.parse($("#contactForm"));
+    });
+}
+
 function startSpinner() {
     var $div = $("<div>", { id: "spinner" });
     $('#content').append($div);
@@ -275,18 +300,6 @@ function setCaptcha() {
         }
     );
 }
-
-function contactPage() {
-    setContentClasses("");
-
-    $.post("/Contact/GetContactView", function (data) {
-        stopSpinner();
-        appendData(data);
-        setCaptcha();
-        $.validator.unobtrusive.parse($("#contactForm"));
-    });
-}
-
 
 function SetContactData() {
     $("#contactdata").hide();
