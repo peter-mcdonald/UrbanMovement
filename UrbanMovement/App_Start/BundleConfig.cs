@@ -20,6 +20,7 @@ namespace UrbanMovement
             bundles.Add(new ScriptBundle("~/bundles/site")
                 .Include("~/Scripts/menu.js")
                 .Include("~/Scripts/urbanmovement.js")
+                .Include("~/Scripts/localStorage.js")
                 .Include("~/Scripts/soundcloud.js")
                 .Include("~/Scripts/mixcloud.js")
                 .Include("~/Scripts/consoleShim.js")

@@ -1,4 +1,4 @@
-var youTubeChannelURL = "http://www.youtube.com/user/RagzDancehallandTing";
+var youTubeChannelURL = "";
 var youTubePlaylistURL = "";
 var youmaxDefaultTab = "featured";
 var youmaxColumns = 2;
@@ -106,7 +106,8 @@ function loadYoumax() {
 
 //});
 
-function prepareYoumax() {
+function prepareYoumax(channel) {
+    youTubeChannelURL = channel;
     $('#youmax').empty();
 
     if (youTubeChannelURL.indexOf("youtube.com/user/") != -1) {

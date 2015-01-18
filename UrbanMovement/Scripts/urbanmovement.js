@@ -1,4 +1,5 @@
 ﻿var historyJs;
+var cache;
 
 var arr = {
     "home": "Home",
@@ -6,6 +7,8 @@ var arr = {
     "about": "About",
     "bios": "Biographies",
     "youtuberagz": "Dancehall & Ting",
+    "youtubesoulchild": "Soulchild",
+    "youtubelaughlovefunk": "Laugh Love Funk",
     "scinterviews": "Interviews",
     "mcsooz": "Sooz Grooves",
     "mcdancehall": "Dancehall & Ting",
@@ -50,8 +53,8 @@ function siteInitialise() {
     });
 
     initialiseHistory();
-
     setFirstPage();
+    cache = new Cache();
 }
 
 function initialiseHistory() {
@@ -104,6 +107,14 @@ function showPage(selectedPage) {
             youTubePageRagz();
             break;
 
+        case "youtubesoulchild":
+            youTubeDJSoulChild();
+            break;
+
+        case "youtubelaughlovefunk":
+            youTubeLaughLoveFunk();
+            break;
+
         case "scinterviews":
             soundCloudInterviews();
             break;
@@ -112,8 +123,8 @@ function showPage(selectedPage) {
             mixCloudSooz();
             break;
 
-        case "scdancehall":
-            soundCloudDanceHall();
+        case "mcdancehall":
+            mixCloudDanceHall();
             break;
 
         case "mcsoulful":
@@ -198,28 +209,53 @@ function youTubePageRagz() {
     $.post("/YouTube/YouMax", function (data) {
         stopSpinner();
         appendData(data);
-        prepareYoumax();
+        prepareYoumax("http://www.youtube.com/user/RagzDancehallandTing");
     });
 }
 
-function soundCloudInterviews() {
+
+function youTubeDJSoulChild() {
     setContentClasses("scrollable");
-    getDataFromSoundcloud("21788292", "#content");
+    $.post("/YouTube/YouMax", function (data) {
+        stopSpinner();
+        appendData(data);
+        prepareYoumax("http://www.youtube.com/user/akaDjSoulchild");
+    });
 }
 
-function soundCloudDanceHall() {
+function youTubeLaughLoveFunk() {
     setContentClasses("scrollable");
-    getDataFromSoundcloud("57520629", "#content");
+    $.post("/YouTube/YouMax", function (data) {
+        stopSpinner();
+        appendData(data);
+        prepareYoumax("http://www.youtube.com/user/LaughLoveFunk");
+    });
+}
+
+
+
+function soundCloudInterviews() {
+    setContentClasses("scrollable");
+    var sc = new SoundCloud();
+    sc.getData("21788292", "#content");
+}
+
+function mixCloudDanceHall() {
+    setContentClasses("scrollable");
+    var mc = new MixCloud(cache);
+    mc.getData("DJ_Ragz_Australia", "#content");
 }
 
 function mixCloudSooz() {
     setContentClasses("scrollable");
-    getDataFromMixcloud("suevmcdonald", "#content");
+    var mc = new MixCloud(cache);
+    mc.getData("suevmcdonald", "#content");
 }
 
 function mixCloudSoulful() {
     setContentClasses("scrollable");
-    getDataFromMixcloud("seanconradsmall", "#content");
+    var mc = new MixCloud(cache);
+    mc.getData("seanconradsmall", "#content");
 }
 
 function socialUrban() {
