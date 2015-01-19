@@ -27,7 +27,7 @@ function loadFamax() {
 
     $('#load-more').click(function () {
         $('#load-more').text('loading..');
-        loadMore();
+        faloadMore();
     });
 
     $('#famax').append('<div id="famax-lightbox"><div id="picasa-lightbox-wrapper"><div id="picasa-lightbox-image"><img id="picasa-img-lightbox" src=""><iframe id="famax-video-lightbox" width="640" height="360" src="" frameborder="0" allowfullscreen></iframe></div><div id="picasa-lightbox-helper"></div></div></div>');
@@ -45,8 +45,6 @@ function loadFamax() {
     $('#famax-video-lightbox').hide();
 }
 
-
-
 function getPageDetails(fqlUrl) {
     fqlPending = 1;
 
@@ -58,7 +56,7 @@ function getPageDetails(fqlUrl) {
                 fbNext = response.paging.next;
             }
 
-            showFamax(response);
+            this.showFamax(response);
         }
     );
 }
@@ -234,18 +232,19 @@ function showPost(fbPost) {
 
 
     $('.famax-pic-tnail').click(function () {
-        showPicLightbox(this.getAttribute('data-picSrc'));
+        fashowPicLightbox(this.getAttribute('data-picSrc'));
     });
 
     $('.famax-video-tnail').click(function () {
-        showVideoLightbox(this.getAttribute('data-videoSrc'));
+        log("video " + this.getAttribute('data-videoSrc'));
+        fashowVideoLightbox(this.getAttribute('data-videoSrc'));
     });
 
     $('.famax-playlist-sidebar-video').click(function () {
         var tmpPicSrc = this.getAttribute('data-picSrc');
         if (tmpPicSrc.indexOf("_s.") != -1)
             tmpPicSrc = tmpPicSrc.replace("_s.", "_n.");
-        showPicLightbox(tmpPicSrc);
+        fashowPicLightbox(tmpPicSrc);
     });
 
     if (fbPicAspectRatio != 0) {
@@ -256,9 +255,9 @@ function showPost(fbPost) {
     }
 }
 
-function loadMore() {
+function faloadMore() {
     if (!fqlPending && fbNext != "") {
-        getPageDetails(fbNext);
+        this.getPageDetails(fbNext);
     }
 }
 
@@ -278,20 +277,20 @@ function getNextFamaxColumn() {
     return columnNumber;
 }
 
-function showPicLightbox(picSrc) {
+function fashowPicLightbox(picSrc) {
     $('#famax-img-lightbox').show();
     $('#famax-lightbox').show();
-    showLoadingInLightbox();
+    fashowLoadingInLightbox();
     setTimeout(function () { $('#picasa-img-lightbox').attr('src', picSrc); }, 10);
 }
 
-function showVideoLightbox(videoSrc) {
+function fashowVideoLightbox(videoSrc) {
     $('#famax-video-lightbox').show();
     $('#famax-lightbox').show();
     setTimeout(function () { $('#famax-video-lightbox').attr('src', videoSrc); }, 10);
 }
 
-function showLoadingInLightbox() {
+function fashowLoadingInLightbox() {
     $('#picasa-img-lightbox').attr('src', '');
     $('#picasa-img-lightbox').attr('src', pathToLoadingImage);
 }
