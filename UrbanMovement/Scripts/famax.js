@@ -147,9 +147,7 @@ function showPost(fbPost) {
     var fbAttachmentList = fbPost.fbAttachmentList;
     var famaxPicTrain = '';
     var message = fbPost.message;
-
     var attachment_type;
-    var attachment_display;
     var attachment_href;
 
     if (null != message && message != "" && message != "undefined") {

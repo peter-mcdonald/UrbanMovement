@@ -82,41 +82,27 @@ function getReadableNumber(number) {
 
 
 function loadYoumax() {
+    log("loadYoumax");
     $('#youmax').append('<div id="youmax-header"><div id="youmax-stat-holder"></div></div>');
-
     $('#youmax').append('<div id="youmax-tabs"><span id="youmax-featured" class="youmax-tab">Featured</span><span id="youmax-uploads" class="youmax-tab">Uploads</span><span id="youmax-playlists" class="youmax-tab">Playlists</span></div>');
-
     $('#youmax').append('<div id="youmax-encloser"><iframe id="youmax-video" width="' + (youmaxWidgetWidth - 2) + '" height="' + (youmaxWidgetWidth / youtubeVideoAspectRatio) + '" src="" frameborder="0" allowfullscreen></iframe><div id="youmax-video-list-div"></div></div>');
-
     $('#youmax-video').hide();
-
     $('#youmax').append('<div id="youmax-lightbox"><div style="width:100%; position:absolute; top:20%;"><iframe id="youmax-video-lightbox" width="640" height="360" src="" frameborder="0" allowfullscreen></iframe></div></div>');
-
     $('#youmax-lightbox').hide();
+    
+    //$("#youmax-featured").click();
 }
-
-// Moved to youmax.css
-//$(document).ready(function () {
-
-//    var style = '<style>.youmax-showing {color:black;font-weight:normal;}.youmax-duration {background-color: black;color: white;padding: 2px 3px;font-weight: bold;position: absolute;bottom: 0;right: 0;opacity: 0.8;}#youmax-header {background-color:rgb(53,53,53);font:24px Arial;color:white;line-height:25px;height:90px;text-align:left;border: 1px solid rgb(53,53,53);}.youmax-stat {float:right;margin:10px;font:10px Arial;color:#ccc;margin-top: 25px;text-align: center;}#youmax-stat-holder {float:right;height:100%;}.youmax-stat-count {font: 18px Arial;}#youmax-channel-desc {text-align:left;}#youmax {width:' + youmaxWidgetWidth + 'px;background-color: rgb(230,230,230);margin:0px auto;font-family: Calibri;font-size: 14px;text-align:center; overflow-x:hidden;}.youmax-video-tnail {width:100%; background-repeat:no-repeat; background-size:cover;height:180px;position: relative;}.youmax-video-tnail-box {width:46%;margin:2%;float:left;overflow:hidden;box-shadow:inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 1px 3px rgba(0, 0, 0, 0.2);cursor:pointer;cursor:hand;}#youmax-encloser {border-left: 1px solid #cccccc;border-right: 1px solid #cccccc;border-bottom: 1px solid #cccccc;}#youmax-video-list-div {width:100%;text-align:left;display: inline-block;background-color:rgb(230,230,230);	}.youmax-video-list-title {color:#438bc5;display: inline-block;padding:2% 10px; padding-bottom: 0px;font-weight:bold;max-width:250px;max-height:18px;overflow:hidden;}.youmax-video-list-views {color:#555;padding:1% 10px; padding-bottom: 3%;display:inline-block;font-size:12px;}.youmax-playlist-sidebar {background-color:rgba(0,0,0,0.8);float:right;max-width:50%;height:100%;color:white;text-align:center;}.youmax-playlist-video-count {	display:inline-block;margin:3%;margin-top:5%;height:20%;}.youmax-playlist-sidebar-video {opacity:1;width:64px;height:20%;background-color:rgb(114,114,114);display:inline-block;margin:2% auto;background-size:cover;background-position: center center;background-repeat:no-repeat;}.youmax-tab {background-color:rgb(230,230,230);color:#666;text-shadow:0 1px 0 #fff;display: inline-block;margin: 5px;margin-top: 10px;padding: 5px;cursor:pointer;cursor:hand;}#youmax-tabs {text-align:left;background-color:rgb(230,230,230);padding-left: 10px;border-left: 1px solid #cccccc;border-right: 1px solid #cccccc;}#youmax-lightbox {position:fixed;background-color:rgba(0,0,0,0.9);z-index:100;width:100%;height:100%;left:0;top:0;}#youmax-video-lightbox {opacity:1;}</style>';
-//    $('html > head').append(style);
-
-//    var style = '<style>::-webkit-scrollbar {width: 10px;}::-webkit-scrollbar-button {display:none;}::-webkit-scrollbar-track-piece {background: #888}::-webkit-scrollbar-thumb {background: #eee}</style>';
-//    $('html > head').append(style);
-
-//});
 
 function prepareYoumax(channel) {
     youTubeChannelURL = channel;
     $('#youmax').empty();
-
+    //$('#youmax').removeData();
     if (youTubeChannelURL.indexOf("youtube.com/user/") != -1) {
         if (null != youTubeChannelURL && youTubeChannelURL.indexOf("?feature") != -1)
             youmaxUser = youTubeChannelURL.substring(youTubeChannelURL.indexOf("youtube.com/user/") + 17, youTubeChannelURL.indexOf("?feature"));
         else
             youmaxUser = youTubeChannelURL.substring(youTubeChannelURL.indexOf("youtube.com/user/") + 17);
     }
-
 
     loadYoumax();
     showLoader();
@@ -130,8 +116,9 @@ function prepareYoumax(channel) {
         $(this).css('background-color', '#999');
         $(this).css('text-shadow', '0 0');
 
-        youmaxTabId = this.id;
-
+        var youmaxTabId = this.id;
+        youmaxFeaturedPlaylistId = undefined;
+        
         if (youmaxTabId == "youmax-featured")
             initFeaturedVideos();
         if (youmaxTabId == "youmax-uploads")
@@ -148,10 +135,13 @@ function prepareYoumax(channel) {
     } else if (youmaxDefaultTab.toUpperCase() == 'PLAYLISTS' || youmaxDefaultTab.toUpperCase() == 'PLAYLIST') {
         $("#youmax-playlists").click();
     } else {
+        log("default click");
         $("#youmax-featured").click();
     }
 
     var apiProfileURL = "http://gdata.youtube.com/feeds/api/users/" + youmaxUser + "?v=2&alt=json";
+
+    log("Prepare user " + youmaxUser);
 
     $.ajax({
         url: apiProfileURL,
@@ -173,6 +163,7 @@ function setHeader(xhr) {
 }
 
 function showLoader() {
+    log("showLoader");
     $('#youmax-video-list-div').empty();
     $('#youmax-video').hide();
     $('#youmax-video').attr('src', '');
@@ -180,6 +171,7 @@ function showLoader() {
 }
 
 function initFeaturedVideos() {
+    log("initFeaturedVideos " + youmaxFeaturedPlaylistId);
     if (null != youmaxFeaturedPlaylistId && youmaxFeaturedPlaylistId != "" && youmaxFeaturedPlaylistId != "undefined") {
         getFeaturedVideos(youmaxFeaturedPlaylistId);
     } else {
@@ -193,6 +185,7 @@ function initFeaturedVideos() {
 }
 
 function getFeaturedVideos(playlistId) {
+    log("getFeaturedVideos " + playlistId);
     showLoader();
     var apiFeaturedPlaylistVideosURL = "http://gdata.youtube.com/feeds/api/playlists/" + playlistId + "?v=2&alt=jsonc&max-results=50";
     $.ajax({
@@ -214,6 +207,7 @@ function getFeaturedVideos(playlistId) {
 }
 
 function getUploads() {
+    log("getuploads");
     showLoader();
     var apiUploadURL = "http://gdata.youtube.com/feeds/api/users/" + youmaxUser + "/uploads/?v=2&alt=jsonc&max-results=50";
     $.ajax({
@@ -229,6 +223,7 @@ function getUploads() {
 }
 
 function getFeaturedPlaylistId() {
+    log("getFeaturedPlaylistId");
     showLoader();
     var apiPlaylistURL = "https://gdata.youtube.com/feeds/api/users/" + youmaxUser + "/playlists?v=2&alt=jsonc&max-results=1";
     $.ajax({
@@ -249,6 +244,7 @@ function getFeaturedPlaylistId() {
 
 
 function getPlaylists() {
+    log("getPlaylists");
     showLoader();
     var apiPlaylistURL = "https://gdata.youtube.com/feeds/api/users/" + youmaxUser + "/playlists?v=2&alt=jsonc&max-results=50";
     $.ajax({

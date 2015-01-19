@@ -11,23 +11,25 @@ var arr = {
     "youtubelaughlovefunk": "Laugh Love Funk",
     "scinterviews": "Interviews",
     "mcsooz": "Sooz Grooves",
+    "scsooz": "DJ Sooz",
     "mcdancehall": "Dancehall & Ting",
     "mcsoulful": "Souful Living",
+    "scsoulchild": "DJ Soulchild",
     "urbansocial": "Social",
     "soozsocial": "Social",
     "soulchildsocial": "Social",
     "ragzsocial": "Social",
-    "contact": "Contact"
+    "contact": "Contact Us"
 };
 
 pages = {
-    change: function(newPage) {
+    change: function (newPage) {
         this.setAddress(arr[newPage], newPage);
     },
-    home: function() {
+    home: function () {
         this.setAddress("Welcome", "home");
     },
-    replacewithhome: function() {
+    replacewithhome: function () {
         historyJs.replaceState(null, "Home", "?page=home");
     },
     setAddress: function (text, page) {
@@ -76,12 +78,12 @@ function setFirstPage() {
 }
 
 function getPageFromUrl(url) {
-    var parts = parseUri(url);    
+    var parts = parseUri(url);
     return parts.queryKey.page;
 }
 
 function showPage(selectedPage) {
-    
+
     emptyContent();
     startSpinner();
 
@@ -119,16 +121,24 @@ function showPage(selectedPage) {
             soundCloudInterviews();
             break;
 
-        case "mcsooz":
-            mixCloudSooz();
-            break;
-
         case "mcdancehall":
             mixCloudDanceHall();
             break;
 
+        case "mcsooz":
+            mixCloudSooz();
+            break;
+
+        case "scsooz":
+            soundCloudSooz();
+            break;
+
         case "mcsoulful":
             mixCloudSoulful();
+            break;
+
+        case "scsoulchild":
+            soundCloudSoulchild();
             break;
 
         case "urbansocial":
@@ -150,10 +160,10 @@ function showPage(selectedPage) {
         case "contact":
             contactPage();
             break;
+
         default:
             pages.replacewithhome();
     }
-
 }
 
 function homePage() {
@@ -178,7 +188,7 @@ function homePage() {
 }
 
 function eventsPage() {
-    
+
     setContentClasses("");
     $.post("/Events/Calendar", function (data) {
         stopSpinner();
@@ -213,7 +223,6 @@ function youTubePageRagz() {
     });
 }
 
-
 function youTubeDJSoulChild() {
     setContentClasses("scrollable");
     $.post("/YouTube/YouMax", function (data) {
@@ -232,11 +241,9 @@ function youTubeLaughLoveFunk() {
     });
 }
 
-
-
 function soundCloudInterviews() {
     setContentClasses("scrollable");
-    var sc = new SoundCloud();
+    var sc = new SoundCloud(cache);
     sc.getData("21788292", "#content");
 }
 
@@ -252,10 +259,22 @@ function mixCloudSooz() {
     mc.getData("suevmcdonald", "#content");
 }
 
+function soundCloudSooz() {
+    setContentClasses("scrollable");
+    var sc = new SoundCloud(cache);
+    sc.getData("33674627", "#content");
+}
+
 function mixCloudSoulful() {
     setContentClasses("scrollable");
     var mc = new MixCloud(cache);
     mc.getData("seanconradsmall", "#content");
+}
+
+function soundCloudSoulchild() {
+    setContentClasses("scrollable");
+    var sc = new SoundCloud(cache);
+    sc.getData("16129577", "#content");
 }
 
 function socialUrban() {
@@ -287,7 +306,7 @@ function socialSoulChild() {
         stopSpinner();
         appendData(data);
         reLoadWidgets();
-        prepareFamax("https://www.facebook.com/soulfullivingradioshow", "soulfullivingradioshow");
+        prepareFamax("https://www.facebook.com/akaDjSoulchild", "akaDjSoulchild");
     });
 }
 
@@ -298,7 +317,7 @@ function socialRagz() {
         stopSpinner();
         appendData(data);
         reLoadWidgets();
-        prepareFamax("https://www.facebook.com/DancehallAndTingRadioShow", "DancehallAndTingRadioShow");
+        prepareFamax("https://www.facebook.com/pages/DJ-Ragz-Australia/349305668577960", "349305668577960");
     });
 }
 
@@ -383,6 +402,7 @@ function setContentClasses(classes) {
 function emptyContent() {
     $("#content").removeAttr("style");
     $('.vticker').removeData();
+    $('#famax').removeData();
     $("#content").empty();
 }
 
