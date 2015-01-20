@@ -20,7 +20,7 @@ namespace UrbanMovement.Builders
             var client = GetClient();
 
             var fromAddress = new MailAddress("urbanmovement.web@gmail.com");
-            var toAddress = new MailAddress("pea_mach@hotmail.com");
+            var toAddress = new MailAddress("urbanmovementents@gmail.com");
 
             using (var mailMessage = new MailMessage(fromAddress, toAddress))
             {

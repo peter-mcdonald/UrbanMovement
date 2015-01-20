@@ -66,7 +66,7 @@ function showFamax(response) {
     var streamArray = response.data;
     var post_id;
     var message;
-    
+
     var fbAttachmentList = [];
     var fbAttachment;
     var type;
@@ -301,7 +301,29 @@ function prepareFamax(url, pageid) {
 
     loadFamax();
 
-    var fqlUrl = "/" + pageid + "/feed?fields=id,from,to,message,description,picture,source,type,properties,link,name&access_token=" + fbAccessToken;
+    getPageInfo(pageid);
 
+    var fqlUrl = "/" + pageid + "/feed?fields=id,from,to,message,description,picture,source,type,properties,link,name&access_token=" + fbAccessToken;
     getPageDetails(fqlUrl);
+    
+}
+
+function getPageInfo(pageid) {
+
+    var fqlUrl = "http://graph.facebook.com/" + pageid + "?access_token=" + fbAccessToken;
+
+    FB.api(fqlUrl,
+        function (response) {
+            fashowInfo(response);
+        }
+    );
+}
+
+function fashowInfo(response) {
+
+    var pageName = response.name;
+    var pagePic = "https://graph.facebook.com/" + response.id + "/picture";
+    var pageLink = response.link;
+        
+    $('#famax-header').append('<a target="_blank" href="' + pageLink + '"><img style="vertical-align:middle; height:55px; margin:5px; display:inline-block;" src="' + pagePic + '"/>' + pageName + '</a>');
 }

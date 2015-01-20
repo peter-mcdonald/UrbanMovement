@@ -279,7 +279,7 @@ footer
 #famax-header
 {
     background-color: rgb(53,53,53);
-    font: 24px Arial;
+    font: 18px Arial;
     color: white;
     line-height: 25px;
     height: 90px;
@@ -290,7 +290,7 @@ footer
 .famax-stat
 {
     float: right;
-    margin: 10px;
+    margin: 5px;
     font: 10px Arial;
     color: #ccc;
     margin-top: 25px;
