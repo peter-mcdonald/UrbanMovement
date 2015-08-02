@@ -285,6 +285,7 @@
     <Content Include="Content\fonts\FontAwesome.otf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Properties\PublishProfiles\UM.pubxml" />
     <None Include="Properties\PublishProfiles\Urban Movement.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Images\body-gradient.png" />
@@ -354,6 +355,7 @@
     <Content Include="Views\Shared\_RagzSocial.cshtml" />
     <Content Include="Views\Shared\_SoulChildSocial.cshtml" />
     <Content Include="Views\Shared\_Contact.cshtml" />
+    <Content Include="Views\Shared\_Player.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
